@@ -3,9 +3,6 @@
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  if (min < 0) {
-    return "Ошибка. Аргумент функции должен быть больше нуля"
-  }
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -16,7 +13,7 @@ getRandomInt();
 //https://www.w3resource.com/javascript/form/string-length.php
 
 function checkRange(inputText, maxLength) {
-  let userInput = inputText.value;
+  const userInput = inputText.value;
   if (userInput.length < maxLength) {
     return true;
   }
