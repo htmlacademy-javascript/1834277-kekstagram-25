@@ -25,6 +25,7 @@ const LIKES_MIN = 15;
 const LIKES_MAX = 200;
 const COMMENTS_NUMBER_MIN = 0;
 const COMMENTS_NUMBER_MAX = 5;
+const ID_MAX_NUMBER = 1000;
 
 function getRandomInt(min, max) {
   min = Math.ceil(min);
@@ -36,33 +37,23 @@ const getRandomArrayElement = function (elements) {
   return elements[getRandomInt(0, elements.length - 1)];
 };
 
-const createComment = function (count) {
-  const comments = [];
-  for (let i = 0; i < count; i++) {
-    const comment = {
-      id: getRandomInt(1, 1000) + i,
-      avatar: `img/avatar-${  getRandomInt(AVATAR_MIN_NUMBER, AVATAR_MAX_NUMBER)  }.svg`,
-      message: getRandomArrayElement(MESSAGES),
-      name: getRandomArrayElement(AUTHOR_NAMES)
-    };
-    comments.push(comment);
-  }
-  return comments;
+const getComment = function () {
+  return {
+    id: getRandomInt(1, ID_MAX_NUMBER),
+    avatar: `img/avatar-${  getRandomInt(AVATAR_MIN_NUMBER, AVATAR_MAX_NUMBER)  }.svg`,
+    message: getRandomArrayElement(MESSAGES),
+    name: getRandomArrayElement(AUTHOR_NAMES)
+  };
 };
 
-const getPictureDescription = function (count) {
-  const pictures = [];
-  for (let i = 0; i < count; i++) {
-    const picture = {
-      id: i + 1,
-      url: `photos/${  i + 1  }.jpg`,
-      description: `Фото №${  i + 1}`,
-      likes: getRandomInt(LIKES_MIN, LIKES_MAX),
-      comments: createComment(getRandomInt(COMMENTS_NUMBER_MIN, COMMENTS_NUMBER_MAX))
-    };
-    pictures.push(picture);
-  }
-  return pictures;
+const getPictureDescription = function (index) {
+  return {
+    id: getRandomInt(1, ID_MAX_NUMBER),
+    url: `photos/${ index + 1 }.jpg`,
+    description: `Фото №${ index + 1 }`,
+    likes: getRandomInt(LIKES_MIN, LIKES_MAX),
+    comments: Array.from({ length: getRandomInt(COMMENTS_NUMBER_MIN, COMMENTS_NUMBER_MAX) }, () => getComment())
+  };
 };
 
-getPictureDescription(COLLECTION_PICTURES_COUNT);
+const pictureCollection = Array.from({ length: COLLECTION_PICTURES_COUNT }, (it, index) => getPictureDescription(index));
