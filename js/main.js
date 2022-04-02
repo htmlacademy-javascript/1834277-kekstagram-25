@@ -57,4 +57,3 @@ const getPictureDescription = function (index) {
 };
 
 const pictureCollection = Array.from({ length: COLLECTION_PICTURES_COUNT }, (it, index) => getPictureDescription(index));
-console.log(pictureCollection);
