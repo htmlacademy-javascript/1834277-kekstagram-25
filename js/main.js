@@ -1,3 +1,1 @@
-import {getPictureCollection} from './data.js';
-
-getPictureCollection();
+import './upload-photo.js';
