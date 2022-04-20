@@ -20,16 +20,22 @@ function validateHashtags (value) {
     return false;
   }
 
+  if (hashtag === '') {
+    return true;
+  }
+
   for (let i = 0; i < hashtagsArray.length; i++) {
     if (re.test(hashtagsArray[i]) === false) {
       return false;
     }
   }
+
+  return true;
 }
 
 function validateTextDescription () {
   const textDescriptionArray = textDescription.value.split('');
-  if (textDescriptionArray.length >= 0 && textDescriptionArray.length <= 140) {
+  if (textDescriptionArray.length <= 140) {
     return true;
   }
   return false;
