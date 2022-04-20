@@ -12,23 +12,19 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__form-error'
 });
 
-function validateHashtags () {
+function validateHashtags (value) {
   const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
+
   const hashtagsArray = hashtag.value.split(' ');
-  if (hashtagsArray.length >= 1 && hashtagsArray.length <= 5) {
-    hashtagsArray.forEach((element) => {
-      if (re.test(element) !== true) {
-        return false;
-      }
-      for (let i = 0; i < hashtagsArray.length - 1; i++) {
-        if (element === hashtagsArray[i]) {
-          return false;
-        }
-      }
-      return true;
-    });
+  if (hashtagsArray.length > 5) {
+    return false;
   }
-  return false;
+
+  for (let i = 0; i < hashtagsArray.length; i++) {
+    if (re.test(hashtagsArray[i]) === false) {
+      return false;
+    }
+  }
 }
 
 function validateTextDescription () {
@@ -91,4 +87,12 @@ document.addEventListener('keydown', (evt) => {
     body.classList.remove('modal-open');
     uploadFile.value = '';
   }
+});
+
+hashtag.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
+});
+
+textDescription.addEventListener('keydown', (evt) => {
+  evt.stopPropagation();
 });
