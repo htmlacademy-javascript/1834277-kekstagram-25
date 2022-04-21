@@ -12,10 +12,12 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__form-error'
 });
 
-function validateHashtags (value) {
+function validateHashtags () {
   const re = /^#[A-Za-zА-Яа-яЕё0-9]{1,19}$/;
+  const hashtagLowerCase = hashtag.value.toLowerCase();
+  const hashtagsArray = hashtagLowerCase.split(' ');
+  const checkRepeatHashtag = (arg) => arg.some((val, index, arr) => arr.indexOf(val) !== index);
 
-  const hashtagsArray = hashtag.value.split(' ');
   if (hashtagsArray.length > 5) {
     return false;
   }
@@ -28,6 +30,10 @@ function validateHashtags (value) {
     if (re.test(hashtagsArray[i]) === false) {
       return false;
     }
+  }
+
+  if (checkRepeatHashtag(hashtagsArray)) {
+    return false;
   }
 
   return true;
