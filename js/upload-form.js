@@ -8,6 +8,9 @@ const hashtag = form.querySelector('.text__hashtags');
 const textDescription = form.querySelector('.text__description');
 const checkRepeatHashtag = (arg) => arg.some((val, index, arr) => arr.indexOf(val) !== index);
 const checkLengthHashtag = (arg) => arg.some((value) => value.length > HASHTAG_MAX_LENGTH);
+const uploadFile = document.querySelector('#upload-file');
+const imgUpload = document.querySelector('.img-upload__overlay');
+const uploadCancelButton = document.querySelector('#upload-cancel');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__text',
@@ -53,24 +56,18 @@ function validateTextDescription () {
   return false;
 }
 
-pristine.addValidator(hashtag, validateHashtags, 'что-то не красивое');
-
-pristine.addValidator(textDescription, validateTextDescription,'что-то не красивое');
+pristine.addValidator(hashtag, validateHashtags);
+pristine.addValidator(textDescription, validateTextDescription,`Комментарий должен быть не более ${COMMENTS_MAX_LENGTH}`);
 
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
 });
 
-const uploadFile = document.querySelector('#upload-file');
-const imgUpload = document.querySelector('.img-upload__overlay');
-
 uploadFile.addEventListener('change', () => {
   imgUpload.classList.remove('hidden');
   body.classList.add('modal-open');
 });
-
-const uploadCancelButton = document.querySelector('#upload-cancel');
 
 uploadCancelButton.addEventListener('click', () => {
   imgUpload.classList.add('hidden');
